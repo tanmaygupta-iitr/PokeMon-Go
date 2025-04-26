@@ -170,7 +170,7 @@ MenuBtn.addEventListener('click',()=>{
     setTimeout(()=>{
         localStorage.removeItem("playerPokemon");
         localStorage.removeItem("playerInfo");
-        window.location.href="map.html";
+        window.location.href="PokeMon-Go/map.html";
     },3500);
     
 })
@@ -179,8 +179,8 @@ function myAttack(myMove){
     setTimeout(()=>{
         
         const damage=myPokemon.damage;
-        let attackDamage=(((Math.random()*myMove.accuracy)/100)*damage)/3;
-        console.log("Player:",attackDamage);
+        let attackDamage=Math.floor((((Math.random()*myMove.accuracy)/100)*damage)/3);
+        
 
         enemyCurrHp=enemyCurrHp-attackDamage;
         enemyhp_percent=Math.max(0,(enemyCurrHp/enemymaxHp)*100);
@@ -199,6 +199,7 @@ function myAttack(myMove){
         }
         diaglogBox.textContent="ENEMY'S TURN!";
         myTurn=false;
+        
     },1200);
     
 }

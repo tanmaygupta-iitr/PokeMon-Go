@@ -208,6 +208,7 @@ function drawMap(){
     //     ctx.strokeRect(obj.x,obj.y,obj.w,obj.h);
     // }
 }
+// clearRect(0,0,canvas.width,canvas.height);
 drawMap();
 
 function DrawImgPlayer(src,x,y,width,height){
@@ -299,7 +300,7 @@ if(localStorage.playerInfo && localStorage.playerPokemon){
         if(player.x==GymX && player.y==GymY){
             alert("Press ENTER to FIGHT!");
             if(e.key==="Enter"){
-                window.location.href="/Battle.html";
+                window.location.href="PokeMon-Go/Battle.html";
                 audio1.pause();
             }
         }
@@ -317,7 +318,7 @@ else{
             }
             if(e.key==="Enter"){
                 localStorage.setItem("playerInfo",JSON.stringify(player));
-                window.location.href="../CP.html";
+                window.location.href="PokeMon-Go/CP.html";
                 audio1.pause();
             }
         }

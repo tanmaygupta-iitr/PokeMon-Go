@@ -45,7 +45,9 @@ async function getPokemondata(pokemonId){
     }
 }
 const PlayerPokemon=[];
+const EnemyPokemon=[];
 const ChoicesArr=[];
+let PokCount=0;
 const pokemonContainer=document.getElementsByClassName("pokemon_container")[0];
 for(let i=0;i<12;i++){
     let randomNo=Math.floor(Math.random()*100)+1;
@@ -71,19 +73,37 @@ for(let i=0;i<12;i++){
     myDiv.appendChild(myh3); 
     pokemonContainer.appendChild(myDiv);  
     myDiv.addEventListener('click',()=>{
-        if(PlayerPokemon.length<3){
-            PlayerPokemon.push(pokemonData);
-            myDiv.style.backgroundColor="gray";
+        if(PokCount<6){
+            ++PokCount;
+            if(PokCount<=3){
+                PlayerPokemon.push(pokemonData);
+                myDiv.style.backgroundColor="gray";
+            }
+            if(PokCount===3){
+                const h1Element=document.getElementsByClassName("h1")[0];
+                h1Element.innerHTML="<h1>SELECT POKEMONS FOR ENEMY[ANY 3]!</h1>";
+            }
+            if(PokCount>3){
+                if(myDiv.style.backgroundColor==="gray"){
+                    PokCount--;
+                }
+                else{
+                    myDiv.style.backgroundColor="red";
+                    EnemyPokemon.push(pokemonData);
+                }
+                
+            }
         }
     })
 }
 const selectBtn=document.getElementsByClassName("selectBtnDiv")[0];
 selectBtn.addEventListener('click',()=>{
-    if(PlayerPokemon.length!==3){
-    alert("You must Select 3 Pokemons!");  
+    if(PokCount!==6){
+        alert("You must Select 6 Pokemons!");  
     }
     else{
         localStorage.setItem("playerPokemon",JSON.stringify(PlayerPokemon));
-        window.location.href="map.html";
+        localStorage.setItem("enemyPokemon",JSON.stringify(EnemyPokemon));
+        window.location.href="PokeMon-Go/map.html";
     }
 })
