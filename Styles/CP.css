@@ -1,69 +1,59 @@
 body{
     background-image:url("../Assets/grassplain.png") ;
 }
-
-
-.CP{
-    background-image: url("../Assets/choosePokemonBG.png");
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin:5%;
-    height: 36rem;
-    /* position: relative; */
-    /* padding:10rem ; */
-    margin-bottom: 0;;
-}
 .CP .h1{
     display: flex;
-    color: rgb(209,221,255);
+    color: rgb(211, 123, 34);
     font-size: large;
     justify-content: center;
-    /* position: absolute;
-    top:0%; */
     padding:1rem;
     
 }
 .CP .pokemon_container{
-    display: flex;
-    justify-content: space-around;
-    align-items:center;
-    padding-top: 4rem;
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    margin-left: 3.5rem;
+    gap:2rem;
 }
-.pokemon_container .pokemon{
+.pokemon{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    background-color: rgb(209,221,255);
     border-radius: 1rem;
     padding: 1rem;
-    width: 10rem;
-    height: 20rem;
-    background-color: rgb(209,221,255);
     border:2px solid black;
     cursor: pointer;
+
+    width:16vw;
+    height: 20rem;
+}
+.pokemon .img{
+    width: 20vw;
 }
 .pokemon:hover{
     padding:1.5rem;
     transition: 0.3s;
 }
-.enter{
-    margin:0;
-    padding: 1rem;
-    margin-top: 0.5rem;
-    font-size: large;
-    color:white;
-    text-align: center;
-    background-color: black;
-    border-radius: 1rem;
-    white-space: nowrap;
-    font-family: serif;
-    animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
-    display: none;
+.selectBtnDiv{
+    display: flex;
+    justify-content: center;
+    margin: 4rem;
 }
-@keyframes typing {
-    from { width: 0 }
-    to { width: 100% }
+.selectBtn{
+    border: none;
+    padding: 1rem 4rem;
+    font-size: large;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+.selectBtn:hover{
+    background-color: #9d7520;
+    color: white;
+    transition: all 0.4s;
+}
+.hidden{
+    display: none;
 }
