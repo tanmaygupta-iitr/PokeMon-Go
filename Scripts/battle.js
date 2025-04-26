@@ -170,7 +170,7 @@ MenuBtn.addEventListener('click',()=>{
     setTimeout(()=>{
         localStorage.removeItem("playerPokemon");
         localStorage.removeItem("playerInfo");
-        window.location.href="PokeMon-Go/map.html";
+        window.location.href="/map.html";
     },3500);
     
 })

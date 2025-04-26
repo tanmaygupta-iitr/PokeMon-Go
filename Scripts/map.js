@@ -300,7 +300,7 @@ if(localStorage.playerInfo && localStorage.playerPokemon){
         if(player.x==GymX && player.y==GymY){
             alert("Press ENTER to FIGHT!");
             if(e.key==="Enter"){
-                window.location.href="PokeMon-Go/Battle.html";
+                window.location.href="/Battle.html";
                 audio1.pause();
             }
         }
@@ -318,7 +318,7 @@ else{
             }
             if(e.key==="Enter"){
                 localStorage.setItem("playerInfo",JSON.stringify(player));
-                window.location.href="PokeMon-Go/CP.html";
+                window.location.href="/CP.html";
                 audio1.pause();
             }
         }

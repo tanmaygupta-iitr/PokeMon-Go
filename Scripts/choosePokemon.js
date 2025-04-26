@@ -104,6 +104,6 @@ selectBtn.addEventListener('click',()=>{
     else{
         localStorage.setItem("playerPokemon",JSON.stringify(PlayerPokemon));
         localStorage.setItem("enemyPokemon",JSON.stringify(EnemyPokemon));
-        window.location.href="PokeMon-Go/map.html";
+        window.location.href="/map.html";
     }
 })

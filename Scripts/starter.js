@@ -26,6 +26,6 @@ window.addEventListener("keydown",(e)=>{
     }
     else{
         alert("Welcome To Pokemon Game!");
-        window.location.href="PokeMon-Go/map.html";
+        window.location.href="/map.html";
     }
 })
