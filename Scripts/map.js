@@ -230,13 +230,21 @@ const player={
 
 
 // clearRect(0,0,canvas.width,canvas.height);
-drawMap()
 drawMap();
 const p_left=DrawImgPlayer("player-left-stand",player.x,player.y,player.width,player.height);
 const p_right=DrawImgPlayer("player-right-stand",player.x,player.y,player.width,player.height);
 const p_up=DrawImgPlayer("player-up-stand",player.x,player.y,player.width,player.height);
 const p_down=DrawImgPlayer("player-down-stand",player.x,player.y,player.width,player.height);
-ctx.drawImage(p_down,player.x,player.y,player.width,player.height);
+let c3=0;
+window.addEventListener("DOMContentLoaded",()=>{
+    if(c3==0){
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        drawMap();
+        ctx.drawImage(p_down,player.x,player.y,player.width,player.height);
+        c3++;
+    }
+    
+})
 window.addEventListener('keydown',(e)=>{
     if(!['w','a','s','d'].includes(e.key)){
         console.log( " Use WASD for movement!");
