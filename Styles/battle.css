@@ -14,11 +14,7 @@ body{
     position: absolute;
 }
 .container-1{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    /* gap:-5rem; */
-    height: 80vh;
+    height: 68vh;
 }
 
 .hpstuff{
@@ -65,27 +61,45 @@ body{
 .container-2{
     height: 20vh;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: #34ac72;
 }
 .dialog-box{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     text-align: center;
     margin-bottom: 1rem;
     margin-left: 2rem;
+    color:white;
+    font-size:2rem;
+    padding-bottom: 0;
 }
-.dialog-box p{
-    font-size: large;
+.movesDisplay{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
-.showAttacks{
+
+.showMyAttacks{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap:1rem;
-    margin-right: 3rem;
+    margin-right: 10rem;
 }
-.attackBtn{
+.showEnemyAttacks{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1rem;
+    margin-left: 10rem;
+}
+.mainBtns{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+.battleBtn{
     border:none;
     background-color: green;
     padding:1rem 3rem;
@@ -93,7 +107,7 @@ body{
     border-radius: 1rem;
     cursor: pointer;
 }
-.attackBtn:hover{
+.battleBtn:hover{
     border:2px solid green;
     color:green;
     background-color: #fff;
@@ -112,9 +126,6 @@ button:hover{
     color:black;
     background-color: #fff;
     padding:0.875rem 2.875rem;
-}
-button:active{
-    background-color:gray
 }
 .hidden{
     display: none;

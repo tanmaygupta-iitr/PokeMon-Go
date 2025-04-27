@@ -18,86 +18,31 @@ const enemyname=document.getElementsByClassName("enemyname")[0];
 let myHpDisplay=document.getElementsByClassName("hpMy")[0];
 let enemyHpDisplay=document.getElementsByClassName("hpEnemy")[0];
 
-const  move1=document.getElementsByClassName("Moves1")[0];  
-const  move2=document.getElementsByClassName("Moves2")[0];
-const  move3=document.getElementsByClassName("Moves3")[0];
-const  move4=document.getElementsByClassName("Moves4")[0];
+const  mymove1=document.getElementsByClassName("myMoves1")[0];  
+const  mymove2=document.getElementsByClassName("myMoves2")[0];
+const  mymove3=document.getElementsByClassName("myMoves3")[0];
+const  mymove4=document.getElementsByClassName("myMoves4")[0];
 
-async function getPokemondata(pokemonId){
-    try {
-        let response= await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
-        const data=await  response.json();
-        console.log("data fetched successfully");
-        // console.log(data);
-        const PokemonData={
-            id:data.id,
-            name:data.forms[0].name,
-            img:data.sprites.front_default,
-            hp: data.stats.find(stat => stat.stat.name === 'hp').base_stat,
-            damage: data.stats.find(stat => stat.stat.name === 'attack').base_stat,
-            moves:{
-                move1:{
-                    name:data.moves[0].move.name,
-                    accuracy:85,
-                },
-                move2:{
-                    name:data.moves[1].move.name,
-                    accuracy:75,
-                },
-                move3:{
-                    name:data.moves[2].move.name,
-                    accuracy:90,
-                },
-                move4:{
-                    name:data.moves[3].move.name,
-                    accuracy:100,
-                },
-            }
-        }
-        console.log("Useful data Extracted succesfully!");
-        // console.log(PokemonData);
-        console.log(PokemonData.img);
-        return PokemonData;
-    } catch (error) {
-        console.log(error);
-    }
-}
+
+const  enemymove1=document.getElementsByClassName("enemyMoves1")[0];  
+const  enemymove2=document.getElementsByClassName("enemyMoves2")[0];
+const  enemymove3=document.getElementsByClassName("enemyMoves3")[0];
+const  enemymove4=document.getElementsByClassName("enemyMoves4")[0];
 
 let gameOver=false;
 //variables needed:
-let myPokemon=null;
-let enemyPokemon=null;
+let myPokemon=[];
+let enemyPokemon=[];
+
+myPokemon=  JSON.parse(localStorage.getItem("playerPokemon"));
+enemyPokemon=  JSON.parse(localStorage.getItem("enemyPokemon"));
+
 
 let mymaxHp=0;
 let enemymaxHp=0;
-
 let enemyCurrHp=0;
 let myCurrHp=0;
-let myTurn=true;
-
-myPokemon=  JSON.parse(localStorage.getItem("playerPokemon"))[0];
-myImg.src=`${myPokemon.img.back}`;
-// console.log(myPokemon);
-
-
-let random=(Math.floor(Math.random()*150)+1);
-enemyPokemon=await getPokemondata(random);
-enemyImg.src=`${enemyPokemon.img}`;
-
-mymaxHp=Number(myPokemon.hp);
-enemymaxHp=Number(enemyPokemon.hp);
-
-enemyCurrHp=enemymaxHp;
-myCurrHp=mymaxHp;
-
-myname.textContent=`${myPokemon.name.toUpperCase()}`;
-enemyname.textContent=`${enemyPokemon.name.toUpperCase()}`;
-
-move1.textContent=`${myPokemon.moves.move1.name}`;
-move2.textContent=`${myPokemon.moves.move2.name}`;
-move3.textContent=`${myPokemon.moves.move3.name}`;
-move4.textContent=`${myPokemon.moves.move4.name}`;
-
+// let myTurn=true;
 let myhp_percent=(myCurrHp/mymaxHp)*100;
 let enemyhp_percent=(enemyCurrHp/enemymaxHp)*100;
 
@@ -105,45 +50,117 @@ let enemyhp_percent=(enemyCurrHp/enemymaxHp)*100;
 console.log("MyPokemon:",myPokemon.hp)
 console.log("EnemeyPokemon:",enemyPokemon.hp)
 
-myHpDisplay.style.width=`${myhp_percent}`;
+myHpDisplay.style.width=`${myhp_percent}%`;
 enemyHpDisplay.style.width=`${enemyhp_percent}%`;
-let moveSelected=false;
+let mymoveSelected=false;
+let enemymoveSelected=false;
 let myMove=null;
-move1.addEventListener('click',()=>{
-    if(!gameOver){
-        diaglogBox.textContent="YOUR TURN!";
-    }
+let enemyMove=null;
+function Myintialize(){
+    mymaxHp=Number(myPokemon[0].hp);
     
-    if(!moveSelected && myTurn){
-        myMove=myPokemon.moves.move1;
-        move1.style.background="gray";
-        moveSelected=true;
+    myCurrHp=mymaxHp;
+    myImg.src=`${myPokemon[0].img.back}`;
+
+    myname.textContent=`${myPokemon[0].name.toUpperCase()}`;
+
+    mymove1.textContent=`${myPokemon[0].moves.move1.name}`;
+    mymove2.textContent=`${myPokemon[0].moves.move2.name}`;
+    mymove3.textContent=`${myPokemon[0].moves.move3.name}`;
+    mymove4.textContent=`${myPokemon[0].moves.move4.name}`;
+    myhp_percent=(myCurrHp/mymaxHp)*100;
+    myHpDisplay.style.width=`${myhp_percent}%`;
+    mymoveSelected=false;
+    myMove=null;
+    
+}
+function enemyinitialize(){
+    enemymaxHp=Number(enemyPokemon[0].hp);
+    enemyCurrHp=enemymaxHp;
+    enemyImg.src=`${enemyPokemon[0].img.front}`;
+    enemyname.textContent=`${enemyPokemon[0].name.toUpperCase()}`;
+    enemymove1.textContent=`${enemyPokemon[0].moves.move1.name}`;
+    enemymove2.textContent=`${enemyPokemon[0].moves.move2.name}`;
+    enemymove3.textContent=`${enemyPokemon[0].moves.move3.name}`;
+    enemymove4.textContent=`${enemyPokemon[0].moves.move4.name}`;
+    enemyhp_percent=(enemyCurrHp/enemymaxHp)*100;
+    enemyHpDisplay.style.width=`${enemyhp_percent}%`;
+    enemymoveSelected=false;
+    enemyMove=null;
+    
+}
+Myintialize();
+enemyinitialize();
+
+
+
+
+
+// diaglogBox.textContent="Select Yours and Enemy's Moves.";
+mymove1.addEventListener('click',()=>{
+    
+    if(!mymoveSelected){
+        
+        myMove=myPokemon[0].moves.move1;
+        mymove1.style.background="gray";
+        mymoveSelected=true;
     }   
 })
-move2.addEventListener('click',()=>{
-    if(!moveSelected && myTurn){
-        myMove=myPokemon.moves.move2;
-        move2.style.background="gray";
+mymove2.addEventListener('click',()=>{
+    if(!mymoveSelected){
+        myMove=myPokemon[0].moves.move2;
+        mymove2.style.background="gray";
 
-        moveSelected=true;
+        mymoveSelected=true;
     }
 })
-move3.addEventListener('click',()=>{
-    if(!moveSelected && myTurn){
-        myMove=myPokemon.moves.move3;
-        move3.style.background="gray";
+mymove3.addEventListener('click',()=>{
+    if(!mymoveSelected ){
+        myMove=myPokemon[0].moves.move3;
+        mymove3.style.background="gray";
 
-        moveSelected=true;
+        mymoveSelected=true;
     }
 })
-move4.addEventListener('click',()=>{
-    if(!moveSelected && myTurn){
-        myMove=myPokemon.moves.move4;
-        move4.style.background="gray";
-        moveSelected=true;
+mymove4.addEventListener('click',()=>{
+    if(!mymoveSelected ){
+        myMove=myPokemon[0].moves.move4;
+        mymove4.style.background="gray";
+        mymoveSelected=true;
     }   
 })
 
+enemymove1.addEventListener('click',()=>{
+    
+    if(!enemymoveSelected){
+        enemyMove=enemyPokemon[0].moves.move1;
+        enemymove1.style.background="gray";
+        enemymoveSelected=true;
+    }   
+})
+enemymove2.addEventListener('click',()=>{
+    if(!enemymoveSelected){
+        enemyMove=enemyPokemon[0].moves.move2;
+        enemymove2.style.background="gray";
+
+        enemymoveSelected=true;
+    }
+})
+enemymove3.addEventListener('click',()=>{
+    if(!enemymoveSelected ){
+        enemyMove=enemyPokemon[0].moves.move3;
+        enemymove3.style.background="gray";
+
+        enemymoveSelected=true;
+    }
+})
+enemymove4.addEventListener('click',()=>{
+    if(!enemymoveSelected ){
+        enemyMove=enemyPokemon[0].moves.move4;
+        enemymove4.style.background="gray";
+        enemymoveSelected=true;
+    }   
+})
 // let i=Math.floor(Math.random()*3)+1;
 function gameEnd(){
     if(gameOver){
@@ -155,10 +172,11 @@ function gameEnd(){
                 if(e.key==="Enter"){                   
                 localStorage.removeItem("playerPokemon");
                 localStorage.removeItem("playerInfo");
-                    window.location.href="../map.html";
+                localStorage.removeItem("enemyPokemon")
+                    window.location.href="/map.html";
                 }
             });
-        },3000);
+        },1000);
 
         
     }
@@ -170,17 +188,20 @@ MenuBtn.addEventListener('click',()=>{
     setTimeout(()=>{
         localStorage.removeItem("playerPokemon");
         localStorage.removeItem("playerInfo");
+        localStorage.removeItem("enemyPokemon");
         window.location.href="/map.html";
     },3500);
     
 })
 
+
 function myAttack(myMove){
     setTimeout(()=>{
         
-        const damage=myPokemon.damage;
+        const damage=myPokemon[0].damage;
         let attackDamage=Math.floor((((Math.random()*myMove.accuracy)/100)*damage)/3);
-        
+        console.log("Player:",attackDamage)
+        diaglogBox.textContent=`${myPokemon[0].name.toUpperCase()} did a damage of ${attackDamage}`;
 
         enemyCurrHp=enemyCurrHp-attackDamage;
         enemyhp_percent=Math.max(0,(enemyCurrHp/enemymaxHp)*100);
@@ -190,25 +211,37 @@ function myAttack(myMove){
         enemyHpDisplay.style.width= `${enemyhp_percent}%`;
         if(enemyCurrHp<=0){
             setTimeout(()=>{
-                diaglogBox.textContent=`${enemyPokemon.name} Fainted! You Won!`;
-    
-            gameOver=true;
-            gameEnd();
-            return;
+                if(enemyCurrHp<=0 && myCurrHp<=0){
+                    diaglogBox.textContent="Both the Pokemons Fainted!";
+                }else{
+                    diaglogBox.textContent=`${enemyPokemon[0].name} Fainted! `;
+                }
+                enemyPokemon.splice(0,1);
+                if(enemyPokemon.length!=0){ 
+                    enemyinitialize();
+                }
+                else{
+                    gameOver=true;
+                    diaglogBox.textContent="You Won! Enemy Lost."
+                    gameEnd();
+                }
+                
             },1000);
         }
-        diaglogBox.textContent="ENEMY'S TURN!";
-        myTurn=false;
+        return attackDamage;
         
-    },1200);
+    },600);
+    return 0;
+    
     
 }
 function EnemyAttack(enemyMove){
     setTimeout(()=>{
-        const damage1=enemyPokemon.damage;
-        let attackDamage1=(((Math.random()*enemyMove.accuracy)/100)*damage1)/3;
+        const damage1=enemyPokemon[0].damage;
+        let attackDamage1=Math.floor((((Math.random()*enemyMove.accuracy)/100)*damage1)/3);
         console.log("Enemy:",attackDamage1);
-
+        console.log("acc:",enemyMove);
+        diaglogBox.textContent+=` and ${enemyPokemon[0].name.toUpperCase()} did a damage of ${attackDamage1}.`;
         myCurrHp-=attackDamage1;
         myhp_percent=Math.max(0,(myCurrHp/mymaxHp)*100);
         console.log("PLayerHp:",myCurrHp);
@@ -216,43 +249,57 @@ function EnemyAttack(enemyMove){
         myHpDisplay.style.width=`${myhp_percent}%`;
         if(myCurrHp<=0){
             setTimeout(()=>{
-                diaglogBox.textContent=`${myPokemon.name} Fainted! You lost!`;
-                gameOver=true;
-                gameEnd();
-                return;
-            },1000)
-        }
-        diaglogBox.textContent="YOUR TURN!";
-        myTurn=true;
-    },2800);
-    
-}
-attackBtn.addEventListener('click',()=>{
-    move1.style.background="green";
-    move2.style.background="green";
-    move3.style.background="green";
-    move4.style.background="green";
-    if(!gameOver){
-        if(moveSelected && myTurn){
-            setTimeout(()=>{
-                diaglogBox.textContent="YOUR TURN!";
-                myAttack(myMove);
-                if(enemyCurrHp<=0){
+                if(enemyCurrHp<=0 && myCurrHp<=0){
+                    diaglogBox.textContent="Both the Pokemons Fainted!";
+                }else{
+                    diaglogBox.textContent=`${myPokemon[0].name} Fainted! `;
+                }
+                myPokemon.splice(0,1);
+                if(myPokemon.length!=0){     
+                    Myintialize();
+                }
+                else{
                     gameOver=true;
+                    diaglogBox.textContent="You Lost! Enemy Won."
                     gameEnd();
                 }
-                diaglogBox.textContent="ENEMY'S TURN";
+                
+            },1000);
+        }
+        return attackDamage1;
+    },600);
+    return 0;
     
-                EnemyAttack(enemyPokemon.moves.move3);
+    
+}
+const battleBtn=document.getElementsByClassName("BattleBtn")[0];
+battleBtn.addEventListener('click',()=>{
+    mymove1.style.background="green";
+    enemymove1.style.background="green";
+    mymove2.style.background="green";
+    enemymove2.style.background="green";
+    mymove3.style.background="green";
+    enemymove3.style.background="green";
+    mymove4.style.background="green";
+    enemymove4.style.background="green";
+    if(!gameOver){
+        if(mymoveSelected && enemymoveSelected){
+            setTimeout(()=>{
+                myAttack(myMove);
+                EnemyAttack(enemyMove);
             },1500);
             
             if(myCurrHp<=0 || enemyCurrHp<=0){
                 gameOver=true;
-                // console.log("GameOver!");
             }else{
-                moveSelected=false;
+                mymoveSelected=false;
+                enemymoveSelected=false;
             }
         } 
-    }    
+    }
+    else{
+        gameEnd();
+    }   
+
 })
 
