@@ -48,6 +48,7 @@ const PlayerPokemon=[];
 const EnemyPokemon=[];
 const ChoicesArr=[];
 let PokCount=0;
+const h1Element=document.getElementsByClassName("h1")[0];
 const pokemonContainer=document.getElementsByClassName("pokemon_container")[0];
 for(let i=0;i<12;i++){
     let randomNo=Math.floor(Math.random()*100)+1;
@@ -75,24 +76,37 @@ for(let i=0;i<12;i++){
     myDiv.addEventListener('click',()=>{
         if(PokCount<6){
             ++PokCount;
-            if(PokCount<=3){
-                PlayerPokemon.push(pokemonData);
-                myDiv.style.backgroundColor="gray";
-            }
-            if(PokCount===3){
-                const h1Element=document.getElementsByClassName("h1")[0];
-                h1Element.innerHTML="<h1>SELECT POKEMONS FOR ENEMY[ANY 3]!</h1>";
-            }
-            if(PokCount>3){
+            if(PlayerPokemon.length<3){
                 if(myDiv.style.backgroundColor==="gray"){
+                    PokCount=PokCount-2;
+                    PlayerPokemon.pop();
+                    myDiv.style.backgroundColor="rgb(209, 221, 255)";
+                }
+                else{
+                    PlayerPokemon.push(pokemonData);
+                    myDiv.style.backgroundColor="gray";
+                }
+                
+            }
+            if(PlayerPokemon.length===3 && h1Element.innerHTML==="<h1>SELECT POKEMONS FOR ENEMY[ANY 3]!</h1>"){
+                if(myDiv.style.backgroundColor==="red"){
+                    PokCount=PokCount-2;
+                    EnemyPokemon.pop();
+                    myDiv.style.backgroundColor="rgb(209, 221, 255)";
+                }
+                else if(myDiv.style.backgroundColor==="gray"){
                     PokCount--;
                 }
                 else{
                     myDiv.style.backgroundColor="red";
                     EnemyPokemon.push(pokemonData);
-                }
-                
+                }   
             }
+            if(PokCount===3){
+                h1Element.innerHTML="<h1>SELECT POKEMONS FOR ENEMY[ANY 3]!</h1>";
+            }
+            
+            console.log(PokCount);
         }
     })
 }

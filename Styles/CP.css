@@ -31,7 +31,7 @@ body{
     height: 20rem;
 }
 .pokemon .img{
-    width: 20vw;
+    width: 16vw;
 }
 .pokemon:hover{
     padding:1.5rem;
