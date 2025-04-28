@@ -15,12 +15,17 @@ body{
 }
 .container-1{
     height: 68vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* gap:1rem; */
 }
 
 .hpstuff{
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    /* align-items: center; */
+    height: 150px;
 }
 .enemyhpBar,
 .myhpBar{
@@ -51,12 +56,19 @@ body{
 .pokemonstuff{
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    /* align-items: center; */
+    height: 150px;
 }
 .myImg,
 .enemyImg{
     width: 20rem;
     height: 15rem;
+}
+.myhpBar{
+    margin-top: 2rem;
+}
+.enemyhpBar{
+    margin-top: 5rem;
 }
 .container-2{
     height: 20vh;
