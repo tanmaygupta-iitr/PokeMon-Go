@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const audio1=new Audio();
 audio1.src="./Assets/assets_opening.mp3";
-window.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('mousemove',()=>{
     audio1.play();
     audio1.loop=true;
 })
