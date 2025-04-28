@@ -16,6 +16,8 @@ async function getPokemondata(pokemonId){
             img:{
                 front:data.sprites.front_default,
                 back:data.sprites.back_default,
+                gif_front:data.sprites.other.showdown.front_default,
+                gif_back:data.sprites.other.showdown.back_default,
             },
             hp: data.stats.find(stat => stat.stat.name === 'hp').base_stat,
             damage: data.stats.find(stat => stat.stat.name === 'attack').base_stat,
@@ -38,6 +40,8 @@ async function getPokemondata(pokemonId){
                 },
             }
         }
+        console.log(PokemonData.img.gif_front);
+        console.log(PokemonData.img.gif_back);
         console.log("Useful data Extracted succesfully!");
         return PokemonData;
     } catch (error) {

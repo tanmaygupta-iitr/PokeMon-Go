@@ -60,7 +60,7 @@ function Myintialize(){
     mymaxHp=Number(myPokemon[0].hp);
     
     myCurrHp=mymaxHp;
-    myImg.src=`${myPokemon[0].img.back}`;
+    myImg.src=`${myPokemon[0].img.gif_back}`;
 
     myname.textContent=`${myPokemon[0].name.toUpperCase()}`;
 
@@ -77,7 +77,7 @@ function Myintialize(){
 function enemyinitialize(){
     enemymaxHp=Number(enemyPokemon[0].hp);
     enemyCurrHp=enemymaxHp;
-    enemyImg.src=`${enemyPokemon[0].img.front}`;
+    enemyImg.src=`${enemyPokemon[0].img.gif_front}`;
     enemyname.textContent=`${enemyPokemon[0].name.toUpperCase()}`;
     enemymove1.textContent=`${enemyPokemon[0].moves.move1.name}`;
     enemymove2.textContent=`${enemyPokemon[0].moves.move2.name}`;
