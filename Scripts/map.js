@@ -230,11 +230,17 @@ const player={
 
 
 // clearRect(0,0,canvas.width,canvas.height);
-drawMap();
+
+
 const p_left=DrawImgPlayer("player-left-stand",player.x,player.y,player.width,player.height);
 const p_right=DrawImgPlayer("player-right-stand",player.x,player.y,player.width,player.height);
 const p_up=DrawImgPlayer("player-up-stand",player.x,player.y,player.width,player.height);
 const p_down=DrawImgPlayer("player-down-stand",player.x,player.y,player.width,player.height);
+
+document.addEventListener('DOMContentLoaded',()=>{
+    drawMap();
+    const p_down=DrawImgPlayer("player-down-stand",player.x,player.y,player.width,player.height);
+})
 let c3=0;
 window.addEventListener("DOMContentLoaded",()=>{
     if(c3==0){
