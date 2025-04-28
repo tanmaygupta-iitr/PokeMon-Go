@@ -20,6 +20,7 @@ introMap.onload=()=>{
 }
 localStorage.removeItem("playerPokemon");
 localStorage.removeItem("playerInfo");
+localStorage.removeItem("enemyPokemon");
 window.addEventListener("keydown",(e)=>{
     if(e.key!=="Enter"){
         popUp();

@@ -271,7 +271,7 @@ window.addEventListener('keydown',(e)=>{
             }
             
             ctx.drawImage(p_up,player.x,player.y,player.width,player.height); 
-            console.log(p_up);
+            // console.log(p_up);
         }
         if(e.key==="a"){
             x1-=d;
