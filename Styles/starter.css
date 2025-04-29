@@ -6,3 +6,14 @@
     height: 100vh;
     position: absolute;
 }
+.display-message{
+    display: none;
+}
+@media(max-width:40rem){
+    #canvas{
+        display: none;
+    }
+    .display-message{
+        display: block;
+    }
+}
