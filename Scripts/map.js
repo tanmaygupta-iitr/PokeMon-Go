@@ -312,9 +312,11 @@ if(localStorage.playerInfo && localStorage.playerPokemon){
     setTimeout(()=>{
         alert("Go to the Pokemon Gym for battle!");
     })
+    let count2=0;
     window.addEventListener("keydown",(e)=>{
-        if(player.x==GymX && player.y==GymY){
+        if(player.x==GymX && player.y==GymY && count2==0){
             alert("Press ENTER to FIGHT!");
+            count2++;
             if(e.key==="Enter"){
                 window.location.href="/Battle.html";
                 audio1.pause();
