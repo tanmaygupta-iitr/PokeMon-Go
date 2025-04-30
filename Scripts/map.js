@@ -314,9 +314,12 @@ if(localStorage.playerInfo && localStorage.playerPokemon){
     })
     let count2=0;
     window.addEventListener("keydown",(e)=>{
-        if(player.x==GymX && player.y==GymY && count2==0){
-            alert("Press ENTER to FIGHT!");
-            count2++;
+        if(player.x==GymX && player.y==GymY){
+            if( count2==0){
+                alert("Press ENTER to FIGHT!");
+                count2++;
+            }
+            
             if(e.key==="Enter"){
                 window.location.href="/Battle.html";
                 audio1.pause();

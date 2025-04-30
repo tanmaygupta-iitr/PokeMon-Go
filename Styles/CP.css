@@ -15,7 +15,13 @@ body{
     margin-left: 3.5rem;
     gap:2rem;
 }
-.pokemon{
+.CP .enemy_container{
+    display: grid;
+    grid-template-columns:repeat(4,1fr);
+    margin-left: 3.5rem;
+    gap:2rem;
+}
+.pokemon-my{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -30,13 +36,36 @@ body{
     width:16vw;
     height: 20rem;
 }
-.pokemon .img{
+.pokemon-my .img{
     width: 16vw;
 }
-.pokemon:hover{
-    padding:1.5rem;
-    transition: 0.3s;
+.pokemon-my:hover{
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
 }
+.pokemon-enemy{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background-color: rgb(209,221,255);
+    border-radius: 1rem;
+    padding: 1rem;
+    border:2px solid black;
+    cursor: pointer;
+
+    width:16vw;
+    height: 20rem;
+}
+.pokemon-enemy .img{
+    width: 16vw;
+}
+.pokemon-enemy:hover{
+    transform: scale(1.05);
+    transition: 0.3s ease-in-out;
+}
+
 .selectBtnDiv{
     display: flex;
     justify-content: center;

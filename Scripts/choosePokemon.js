@@ -49,17 +49,66 @@ async function getPokemondata(pokemonId){
     }
 }
 const PlayerPokemon=[];
-const EnemyPokemon=[];
-const ChoicesArr=[];
+const ChoicesArrMy=[];
 let PokCount=0;
-const h1Element=document.getElementsByClassName("h1")[0];
+const h1My=document.getElementsByClassName("h1")[0];
+const h1Enemy=document.getElementsByClassName("h1_enemy")[0];
 const pokemonContainer=document.getElementsByClassName("pokemon_container")[0];
-for(let i=0;i<12;i++){
+const enemyContainer=document.getElementsByClassName("enemy_container")[0];
+for(let i=0;i<8;i++){
     let randomNo=Math.floor(Math.random()*100)+1;
-    let randomNo2=Math.floor(Math.random()*100)+1;
+    for(let i=0;i<ChoicesArrMy.length;i++){
+        if(randomNo===ChoicesArrMy[i].id){
+            randomNo+=150+i;
+            break;
+        }
+    }
+    const pokemonData=await getPokemondata(randomNo);
+    ChoicesArrMy.push(pokemonData);
+    const myh3=document.createElement("h3");
+    myh3.classList.add("h3");
+    myh3.textContent=`${pokemonData.name}`;
+    const myImg=document.createElement("img");
+    myImg.src=`${ChoicesArrMy[i].img.front}`;
+    console.log(myImg.src);
+    myImg.classList.add("img");
+    const myDiv=document.createElement("div");
+    myDiv.classList.add("pokemon-my");
+    myDiv.appendChild(myImg);
+    myDiv.appendChild(myh3); 
+    pokemonContainer.appendChild(myDiv);  
+    myDiv.addEventListener('click',()=>{
+        if(PokCount<4){
+            ++PokCount;
+            if(PlayerPokemon.length<=3){
+                if(myDiv.style.backgroundColor==="gray"){
+                    PokCount=PokCount-2;
+                    PlayerPokemon.pop();
+                    myDiv.style.backgroundColor="rgb(209, 221, 255)";
+                }
+                else{
+                    if(PlayerPokemon.length===3){
+                        PokCount--;
+                    }
+                    else{
+                        PlayerPokemon.push(pokemonData);
+                        myDiv.style.backgroundColor="gray";
+                    }
+                    
+                }    
+            }
+            console.log(PokCount);
+        }
+    })
+}
+let enemyPokCount=0;
+const ChoicesArr=[];
+const EnemyPokemon=[];
+for(let i=0;i<8;i++){
+    let randomNo=Math.floor(Math.random()*100)+1;
     for(let i=0;i<ChoicesArr.length;i++){
         if(randomNo===ChoicesArr[i].id){
-            randomNo=randomNo2;
+            randomNo+=150+i;
             break;
         }
     }
@@ -73,50 +122,37 @@ for(let i=0;i<12;i++){
     console.log(myImg.src);
     myImg.classList.add("img");
     const myDiv=document.createElement("div");
-    myDiv.classList.add("pokemon");
+    myDiv.classList.add("pokemon-enemy");
     myDiv.appendChild(myImg);
     myDiv.appendChild(myh3); 
-    pokemonContainer.appendChild(myDiv);  
+    enemyContainer.appendChild(myDiv);  
     myDiv.addEventListener('click',()=>{
-        if(PokCount<6){
-            ++PokCount;
-            if(PlayerPokemon.length<3){
-                if(myDiv.style.backgroundColor==="gray"){
-                    PokCount=PokCount-2;
-                    PlayerPokemon.pop();
-                    myDiv.style.backgroundColor="rgb(209, 221, 255)";
-                }
-                else{
-                    PlayerPokemon.push(pokemonData);
-                    myDiv.style.backgroundColor="gray";
-                }
-                
-            }
-            if(PlayerPokemon.length===3 && h1Element.innerHTML==="<h1>SELECT POKEMONS FOR ENEMY[ANY 3]!</h1>"){
+        if(enemyPokCount<4){
+            ++enemyPokCount;
+            if(EnemyPokemon.length<=3){
                 if(myDiv.style.backgroundColor==="red"){
-                    PokCount=PokCount-2;
+                    enemyPokCount=enemyPokCount-2;
                     EnemyPokemon.pop();
                     myDiv.style.backgroundColor="rgb(209, 221, 255)";
                 }
-                else if(myDiv.style.backgroundColor==="gray"){
-                    PokCount--;
-                }
                 else{
-                    myDiv.style.backgroundColor="red";
-                    EnemyPokemon.push(pokemonData);
-                }   
+                    if(EnemyPokemon.length===3){
+                        enemyPokCount--;
+                    }
+                    else{
+                        EnemyPokemon.push(pokemonData);
+                        myDiv.style.backgroundColor="red";
+                    }
+                    
+                }    
             }
-            if(PokCount===3){
-                h1Element.innerHTML="<h1>SELECT POKEMONS FOR ENEMY[ANY 3]!</h1>";
-            }
-            
-            console.log(PokCount);
+            console.log(enemyPokCount);
         }
     })
 }
 const selectBtn=document.getElementsByClassName("selectBtnDiv")[0];
 selectBtn.addEventListener('click',()=>{
-    if(PokCount!==6){
+    if(PokCount!==3 || enemyPokCount!==3){
         alert("You must Select 6 Pokemons!");  
     }
     else{
