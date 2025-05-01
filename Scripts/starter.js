@@ -32,5 +32,4 @@ if(canvas.style.display!=="none"){
             window.location.href="/map.html";
         }
     })
-
 }
