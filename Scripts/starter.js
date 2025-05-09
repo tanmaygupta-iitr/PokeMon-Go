@@ -2,7 +2,7 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 const audio1=new Audio();
 
-if(canvas.style.display!=="none"){
+if(canvas.display!=="none"){
     audio1.src="./Assets/assets_opening.mp3";
     document.addEventListener('mousemove',()=>{
         audio1.play();
@@ -24,6 +24,7 @@ if(canvas.style.display!=="none"){
     localStorage.removeItem("playerInfo");
     localStorage.removeItem("enemyPokemon");
     window.addEventListener("keydown",(e)=>{
+        
         if(e.key!=="Enter"){
             popUp();
         }
